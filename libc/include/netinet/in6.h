@@ -87,7 +87,12 @@
 #define IN6_IS_ADDR_MC_ORGLOCAL(a)     \
 	(IN6_IS_ADDR_MULTICAST(a) &&  \
 	 (IPV6_ADDR_MC_SCOPE(a) == IPV6_ADDR_SCOPE_ORGLOCAL))
-
+#define IN6_IS_ADDR_MC_NODELOCAL(a) \
+	(IN6_IS_ADDR_MULTICAST(a)					      \
+	 && ((((__const uint8_t *) (a))[1] & 0xf) == 0x1))
+#define IN6_IS_ADDR_MC_GLOBAL(a) \
+	(IN6_IS_ADDR_MULTICAST(a)					      \
+	 && ((((__const uint8_t *) (a))[1] & 0xf) == 0xe))
 
 #define IN6_ARE_ADDR_EQUAL(a, b)			\
     (memcmp(&(a)->s6_addr[0], &(b)->s6_addr[0], sizeof(struct in6_addr)) == 0)
